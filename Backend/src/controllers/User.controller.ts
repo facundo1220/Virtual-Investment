@@ -14,6 +14,7 @@ export class UserController {
       res
         .status(200)
         .json({ message: "User created successfully", token, user });
+      return
     } catch (error) {
       res
         .status(500)
@@ -25,6 +26,7 @@ export class UserController {
     try {
       const data = await UserService.getUsers();
       res.status(200).json({ data });
+      return
     } catch (error) {
       res
         .status(500)
@@ -38,6 +40,7 @@ export class UserController {
       const { name, email } = req.body;
       const user = await UserService.updateUser(id, name, email);
       res.status(200).json({ message: "User updated successfully", user });
+      return
     } catch (error) {
       res
         .status(500)
@@ -50,6 +53,7 @@ export class UserController {
       const { id } = req.params;
       await UserService.deleteUser(id);
       res.status(200).json({ message: "User deleted successfully" });
+      return
     } catch (error) {
       res
         .status(500)

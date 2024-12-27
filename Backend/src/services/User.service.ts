@@ -9,14 +9,20 @@ export class UserService {
     password: string,
     role: string
   ) {
+    const userRepository = AppDataSource.getRepository(User);
+
+    const findUser = await userRepository.findOne({ where: { email } });
+
+    if (findUser) throw new Error("User already exists");
+
     const encryptedPassword = await encrypt.encryptpass(password);
+
     const user = new User();
     user.name = name;
     user.email = email;
     user.password = encryptedPassword;
     user.role = role;
 
-    const userRepository = AppDataSource.getRepository(User);
     await userRepository.save(user);
 
     const token = encrypt.generateToken({ id: user.id });

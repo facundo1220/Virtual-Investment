@@ -1,9 +1,8 @@
 import * as jwt from "jsonwebtoken";
 import * as bcrypt from "bcrypt";
-import * as dotenv from "dotenv";
+import envConfig from '../config/EnvConfig'
 
-dotenv.config();
-const { JWT_SECRET = "" } = process.env;
+const JWT_SECRET = envConfig.JWT_SECRET;
 export class encrypt {
   static async encryptpass(password: string) {
     return bcrypt.hashSync(password, 12);

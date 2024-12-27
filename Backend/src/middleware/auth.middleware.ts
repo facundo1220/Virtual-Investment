@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import * as jwt from "jsonwebtoken";
-import * as dotenv from "dotenv";
-dotenv.config();
+
+import envConfig from '../config/EnvConfig'
 
 export const authentification = (
   req: Request,
@@ -10,16 +10,25 @@ export const authentification = (
 ) => {
   const header = req.headers.authorization;
   if (!header) {
-    res.status(401).json({ message: "Unauthorized" });
+    res.status(401).json({ message: "Unauthorized: Missing authorization header" });
   }
+
+
   const token = header.split(" ")[1];
+
   if (!token) {
-    res.status(401).json({ message: "Unauthorized" });
+    res.status(401).json({ message: "Unauthorized: Missing token" });
   }
-  const decode = jwt.verify(token, process.env.JWT_SECRET);
-  if (!decode) {
-    res.status(401).json({ message: "Unauthorized" });
+
+  try {
+    const decode = jwt.verify(token, envConfig.JWT_SECRET);
+    if (!decode) {
+      res.status(401).json({ message: "Unauthorized: Invalid token" });
+    }
+    req["currentUser"] = decode;
+    next();
+  } catch (error) {
+    console.error("Token verification failed:", error.message);
+    res.status(400).json({ message: "Invalid token format or signature" });
   }
-  req["currentUser"] = decode;
-  next();
 };

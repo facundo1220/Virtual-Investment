@@ -2,8 +2,7 @@ import * as express from "express";
 import * as cors from "cors";
 
 import { userRouter } from "./routes/user.route";
-import {simulationRoute} from "./routes/simulation.route";
-import { Request, Response } from "express";
+import { simulationRoute } from "./routes/simulation.route";
 import { errorHandler } from "./middleware/error.middleware";
 
 const app = express();
@@ -16,8 +15,6 @@ app.set("port", PORT);
 
 app.use(cors());
 app.use(express.json());
-
-
 
 app.use("/auth", userRouter);
 app.use("/api", simulationRoute);

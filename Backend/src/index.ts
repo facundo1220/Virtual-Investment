@@ -11,7 +11,10 @@ async function main() {
       console.log("Server working");
     });
   } catch (error) {
-    console.log(error);
+    console.error("Error connecting to the database:", error.message);
+    throw new Error(
+      "Failed to connect to the database. Please check your configuration."
+    );
   }
 }
 

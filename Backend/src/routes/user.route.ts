@@ -15,7 +15,7 @@ const Router = express.Router();
 Router.get(
   "/users",
   authentification,
-  authorization(["user"]),
+  authorization([ "admin"]),
   UserController.getUsers
 );
 Router.get(
@@ -24,6 +24,7 @@ Router.get(
   authorization(["user", "admin"]),
   AuthController.getProfile
 );
+
 Router.post(
   "/signup",
   validateSignup,
@@ -36,6 +37,12 @@ Router.post(
   handleValidationErrors,
   AuthController.login
 );
+Router.post(
+  "/validateSesion",
+  authentification,
+  AuthController.validateToken
+);
+
 Router.put(
   "/update/:id",
   validateUpdateUser,
@@ -44,6 +51,7 @@ Router.put(
   authorization(["user", "admin"]),
   UserController.updateUser
 );
+
 Router.delete(
   "/delete/:id",
   authentification,

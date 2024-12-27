@@ -12,9 +12,6 @@ CREATE TABLE users (
     "updatedAt" TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
---INSERT INTO users (name, email, password)
---VALUES ('Test User', 'test.user@gmail.com', '123456');
-
 CREATE TABLE simulations (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     amount DOUBLE PRECISION NOT NULL,

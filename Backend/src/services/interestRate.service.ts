@@ -1,9 +1,10 @@
-import { InvestmentRange } from "../models/InvestmentRange"; // Adjust path based on your structure
+import { InvestmentRange } from "../models/InvestmentRange";
 import { AppDataSource } from "../config/data-source";
-import * as dotenv from "dotenv";
+import envConfig from '../config/EnvConfig'
 
 export interface InterestCalculationResult {
   interestRate: number;
+  investmentReturn: number;
   netInvestmentReturn: number;
   returnPerPeriod: number;
   withholdingTax: number;
@@ -17,34 +18,35 @@ export class InterestRateService {
     amount: number,
     period: "monthly" | "anual"
   ): Promise<InterestCalculationResult> {
-    const { WITHHOLDINGTASK } = process.env;
+    const WITHHOLDING_TASK = envConfig.WITHHOLDING_TASK;
 
     const from = new Date(fromDate);
     const to = new Date(toDate);
-
     const days = Math.ceil(
       (to.getTime() - from.getTime()) / (1000 * 3600 * 24)
     );
 
     const interestRate = await this.calculateInvestmentRangeRate(days, amount);
-
     const annualRate = interestRate / 100;
 
     const returnPerPeriod =
       period === "monthly" ? (annualRate / 12) * amount : annualRate * amount;
 
-    const withholdingTax = returnPerPeriod * Number(WITHHOLDINGTASK);
+    const daysRate = Math.pow(1 + annualRate, days / 360) - 1;
 
-    const netInvestmentReturn = returnPerPeriod - withholdingTax;
+    const netDaysReturn = amount * daysRate
+    const withholdingTax = netDaysReturn * WITHHOLDING_TASK
+    const netInvestmentReturn = netDaysReturn - withholdingTax;
 
     const finalInvestmentValue = amount + netInvestmentReturn;
 
     return {
       interestRate,
-      netInvestmentReturn: parseFloat(netInvestmentReturn.toFixed(3)),
-      returnPerPeriod: parseFloat(returnPerPeriod.toFixed(3)),
-      withholdingTax: parseFloat(withholdingTax.toFixed(3)),
-      finalInvestmentValue: parseFloat(finalInvestmentValue.toFixed(3)),
+      investmentReturn: parseFloat(netDaysReturn.toFixed()),
+      netInvestmentReturn: parseFloat(netInvestmentReturn.toFixed()),
+      returnPerPeriod: parseFloat(returnPerPeriod.toFixed()),
+      withholdingTax: parseFloat(withholdingTax.toFixed()),
+      finalInvestmentValue: parseFloat(finalInvestmentValue.toFixed()),
     };
   }
 
@@ -65,8 +67,8 @@ export class InterestRateService {
 
     if (result) {
       return Number(result.percentage);
-    } else {
-      return 0;
     }
+    return 0;
+
   }
 }

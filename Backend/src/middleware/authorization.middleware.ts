@@ -8,9 +8,9 @@ export const authorization = (roles: string[]) => {
     const user = await userRepo.findOne({
       where: { id: req["currentUser"].id },
     });
-    console.log(user);
     if (!roles.includes(user.role)) {
       res.status(403).json({ message: "Forbidden" });
+      return
     }
     next();
   };

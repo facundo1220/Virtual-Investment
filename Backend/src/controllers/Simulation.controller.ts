@@ -9,6 +9,7 @@ export class SimulationController {
       res
         .status(200)
         .json({ message: "Simulation created successfully", simulation });
+      return
     } catch (error) {
       res.status(400).json({ message: error.message });
     }
@@ -19,6 +20,7 @@ export class SimulationController {
     try {
       const {
         interestRate,
+        investmentReturn,
         netInvestmentReturn,
         returnPerPeriod,
         withholdingTax,
@@ -36,6 +38,7 @@ export class SimulationController {
         fromDate: new Date(fromDate),
         toDate: new Date(toDate),
         interestRate,
+        investmentReturn,
         netInvestmentReturn,
         returnPerPeriod,
         withholdingTax,
@@ -43,6 +46,7 @@ export class SimulationController {
       };
 
       res.status(200).json(simulation);
+      return
     } catch (error) {
       res.status(400).json({ message: error.message });
     }
@@ -53,6 +57,7 @@ export class SimulationController {
     try {
       const simulations = await SimulationService.getSimulationsByUser(userId);
       res.status(200).json(simulations);
+      return
     } catch (error) {
       res.status(400).json({ message: error.message });
     }
@@ -70,6 +75,7 @@ export class SimulationController {
         message: "Simulation updated successfully",
         simulation: updatedSimulation,
       });
+      return
     } catch (error) {
       res.status(400).json({ message: error.message });
     }
@@ -81,6 +87,7 @@ export class SimulationController {
     try {
       await SimulationService.deleteSimulation(id);
       res.status(200).json({ message: "Simulation deleted successfully" });
+      return
     } catch (error) {
       res.status(400).json({ message: error.message });
     }
