@@ -3,7 +3,7 @@ import Button from "../Button/Button";
 
 import { SimulationResultData } from "../../services/Simulation";
 
-function Step3({
+function SimulationResult({
   simulationResult,
   prevStep,
   handleSaveSimulation,
@@ -40,4 +40,4 @@ function Step3({
   );
 }
 
-export default Step3;
+export default SimulationResult;

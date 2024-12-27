@@ -1,4 +1,5 @@
 import React, { useEffect, useState, Suspense } from "react";
+import { yupResolver } from "@hookform/resolvers/yup";
 import {
   deleteSimulation,
   getSimulations,
@@ -12,6 +13,7 @@ import Modal from "../components/Modal/Modal";
 import DeleteSimulationContent from "../components/Simulations/DeleteSimulationContent";
 import EditSimulationForm from "../components/Simulations/EditSimulationForm";
 import { useForm, FormProvider } from "react-hook-form";
+import { simulationValidationSchema } from "../schemas/simulationSchema";
 
 const TableSimulations = React.lazy(
   () => import("../components/Simulations/TableSimulations")
@@ -30,6 +32,8 @@ const formatDate = (dateString: string) => {
 };
 
 function Simulation() {
+  const navigate = useNavigate();
+
   const [selectedSimulation, setSelectedSimulation] =
     useState<SimulationData | null>(null);
 
@@ -44,11 +48,11 @@ function Simulation() {
         : "",
       paymentType: selectedSimulation?.paymentTerm || "",
     },
+    resolver: yupResolver(simulationValidationSchema),
   });
 
   const { reset } = methods;
 
-  const navigate = useNavigate();
   const { Simulations, setSimulations } = useAppContext();
   const [isModalOpen, setIsModalOpen] = useState(false);
 

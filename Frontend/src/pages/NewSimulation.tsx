@@ -6,12 +6,12 @@ import {
 } from "../services/Simulation";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import Step1 from "../components/NewSimulation/Step1";
-import Step2 from "../components/NewSimulation/Step2";
-import Step3 from "../components/NewSimulation/Step3";
+import ProcessInfo from "../components/NewSimulation/ProcessInfo";
+import NewSimulationForm from "../components/NewSimulation/NewSimulationForm";
+import SimulationResult from "../components/NewSimulation/SimulationResult";
 
 interface FormData {
-  value: string;
+  value: number;
   fromDate: string;
   toDate: string;
   paymentType: string;
@@ -37,7 +37,7 @@ function NewSimulation() {
 
     try {
       const simulation = await generateSimulation({
-        amount: parseFloat(value),
+        amount: value,
         paymentTerm: paymentType,
         fromDate,
         toDate,
@@ -69,14 +69,17 @@ function NewSimulation() {
   return (
     <div className="flex flex-col justify-center items-center bg-re p-5 h-full">
       <div className="h-full w-full rounded-xl lg:px-14 px-5 py-5">
-        {step === 1 && <Step1 nextStep={nextStep} />}
+        {step === 1 && <ProcessInfo nextStep={nextStep} />}
 
         {step === 2 && (
-          <Step2 prevStep={prevStep} handleSimulation={handleSimulation} />
+          <NewSimulationForm
+            prevStep={prevStep}
+            handleSimulation={handleSimulation}
+          />
         )}
 
         {step === 3 && simulationResult && (
-          <Step3
+          <SimulationResult
             prevStep={prevStep}
             simulationResult={simulationResult}
             handleSaveSimulation={handleSaveSimulation}

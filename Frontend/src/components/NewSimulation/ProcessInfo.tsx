@@ -1,6 +1,6 @@
 import Button from "../Button/Button";
 
-function Step1({ nextStep }: { nextStep: () => void }) {
+function ProcessInfo({ nextStep }: { nextStep: () => void }) {
   return (
     <div className="flex justify-center items-center sm:flex-col lg:flex-row gap-10 h-full">
       <div className="h-full w-full lg:w-1/2 flex flex-col justify-center gap-10">
@@ -31,4 +31,4 @@ function Step1({ nextStep }: { nextStep: () => void }) {
   );
 }
 
-export default Step1;
+export default ProcessInfo;

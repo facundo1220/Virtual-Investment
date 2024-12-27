@@ -1,14 +1,16 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import Button from "../Button/Button";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { simulationValidationSchema } from "../../schemas/simulationSchema";
 
 interface FormData {
-  value: string;
+  value: number;
   fromDate: string;
   toDate: string;
   paymentType: string;
 }
 
-function Step2({
+function NewSimulationForm({
   handleSimulation,
   prevStep,
 }: {
@@ -19,23 +21,9 @@ function Step2({
     register,
     handleSubmit,
     formState: { errors },
-    getValues,
-  } = useForm<FormData>();
-
-  const validateToDate = (value: string) => {
-    const fromDate = new Date(getValues("fromDate"));
-    const toDate = new Date(value);
-    const diffInTime = toDate.getTime() - fromDate.getTime();
-    const diffInDays = diffInTime / (1000 * 3600 * 24);
-
-    if (toDate < fromDate) {
-      return "To date cannot be earlier than From date";
-    }
-    if (diffInDays < 30) {
-      return "The minimum time between From Date and To Date must be 30 days";
-    }
-    return true;
-  };
+  } = useForm<FormData>({
+    resolver: yupResolver(simulationValidationSchema),
+  });
 
   return (
     <div className="flex justify-center items-center flex-col gap-10 h-full">
@@ -48,13 +36,7 @@ function Step2({
           <label className="text-sm font-semibold px-5">Amount: </label>
           <input
             type="number"
-            {...register("value", {
-              required: "This field is required",
-              min: {
-                value: 500000,
-                message: "The minimum amount is 500,000",
-              },
-            })}
+            {...register("value")}
             placeholder="Enter the value"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm h-12 rounded-full w-full p-2.5 focus:outline-none focus:border-black"
           />
@@ -69,9 +51,7 @@ function Step2({
           <label className="text-sm font-semibold px-5">From Date:</label>
           <input
             type="date"
-            {...register("fromDate", {
-              required: "This field is required",
-            })}
+            {...register("fromDate")}
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm h-12 rounded-full w-full p-2.5 focus:outline-none focus:border-black"
           />
           {errors.fromDate && (
@@ -85,10 +65,7 @@ function Step2({
           <label className="text-sm font-semibold px-5">To Date: </label>
           <input
             type="date"
-            {...register("toDate", {
-              required: "This field is required",
-              validate: validateToDate,
-            })}
+            {...register("toDate")}
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm h-12 rounded-full w-full p-2.5 focus:outline-none focus:border-black"
           />
           {errors.toDate && (
@@ -125,4 +102,4 @@ function Step2({
   );
 }
 
-export default Step2;
+export default NewSimulationForm;

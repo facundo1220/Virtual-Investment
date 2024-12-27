@@ -3,7 +3,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import Button from "../components/Button/Button";
 import { LoginProcess } from "../services/Auth";
 
-import image from "../assets/loginImafe.png";
+import image from "../assets/loginImage.png";
 
 interface FormData {
   email: string;
