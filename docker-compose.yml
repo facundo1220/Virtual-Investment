@@ -1,0 +1,53 @@
+version: "3.8"
+
+services:
+  backend:
+    build:
+      context: ./Backend  
+      dockerfile: Dockerfile  
+    environment:
+      - DB_HOST=db
+    volumes:
+      - ./backend:/app  
+    ports:
+      - "3000:3000" 
+    depends_on:
+      - db
+    networks:
+      - app_network
+
+  frontend:
+    build:
+      context: ./Frontend
+      dockerfile: Dockerfile
+    environment:
+      - VITE_APP_API_HOST=http://0.0.0.0  
+      - VITE_APP_API_PORT=3000
+    volumes:
+      - ./frontend:/app
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - app_network
+
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 12345
+    volumes:
+      - postgres_data:/var/lib/postgresql/data 
+      - ./db_init/init.sql:/docker-entrypoint-initdb.d/init.sql  
+    ports:
+      - "5432:5432"  
+    networks:
+      - app_network
+
+volumes:
+  postgres_data:
+
+networks:
+  app_network:
+    driver: bridge
