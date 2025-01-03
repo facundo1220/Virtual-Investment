@@ -27,7 +27,7 @@ function NewSimulationForm({
 
   return (
     <div className="flex justify-center items-center flex-col gap-10 h-full">
-      <h1 className="text-3xl font-bold">Enter Values</h1>
+      <h1 className="md:text-headline3 text-headline4 font-bold">Enter Values</h1>
       <form
         className="flex flex-col gap-5 md:w-1/2"
         onSubmit={handleSubmit(handleSimulation)}

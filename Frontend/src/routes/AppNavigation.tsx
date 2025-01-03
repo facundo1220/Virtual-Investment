@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "../pages/Login";
 import MainLayout from "../layouts/MainLayout";
 import Simulation from "../pages/Simulation";
@@ -11,13 +11,12 @@ function AppNavigation() {
     <BrowserRouter>
       <MainLayout>
         <Routes>
-          <Route path="/" element={<Navigate to="/Login" />} />
           <Route path="/*" element={<NotFound />} />
+          <Route path="/" element={<Login />} />
           <Route path="/Login" element={<Login />} />
 
           <Route element={<PrivateRoute />}>
             <Route path="/Simulations" element={<Simulation />} />
-
             <Route path="/NewSimulation" element={<NewSimulation />} />
           </Route>
         </Routes>

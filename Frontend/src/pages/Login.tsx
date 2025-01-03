@@ -65,7 +65,7 @@ function Login() {
                 type="email"
               />
               {errors.email && (
-                <span className="text-red-500 text-sm">
+                <span className="text-red-500 text-small">
                   {errors.email.message}
                 </span>
               )}
@@ -76,7 +76,7 @@ function Login() {
                 type="password"
               />
               {errors.password && (
-                <span className="text-red-500 text-sm">
+                <span className="text-red-500 text-small">
                   {errors.password.message}
                 </span>
               )}

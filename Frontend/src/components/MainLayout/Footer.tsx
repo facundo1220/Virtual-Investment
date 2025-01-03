@@ -1,7 +1,7 @@
 function Footer() {
   return (
     <div className="h-full grid items-center justify-center">
-      <p className="text-sm text-white font-light">
+      <p className="text-small text-white font-light">
         CopyRigth @Facundo | Privacy Policy
       </p>
     </div>

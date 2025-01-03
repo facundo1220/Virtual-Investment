@@ -26,7 +26,7 @@ function TableSimulations({ data, openModal }: TableSimulationsProps) {
 
   return (
     <div className="overflow-x-auto shadow-md rounded-lg">
-      <table className="w-full text-xs text-left">
+      <table className="w-full text-label text-left">
         <thead className="uppercase">
           <tr className="border whitespace-nowrap">
             {columnNames.map((column, index) => (
