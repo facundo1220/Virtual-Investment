@@ -1,5 +1,7 @@
 function NotFound() {
-  return <div>NotFound</div>;
+  return (
+    <div className="w-full flex justify-center items-center">NotFound...</div>
+  );
 }
 
 export default NotFound;

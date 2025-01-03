@@ -1,26 +1,18 @@
 import { SimulationResultData } from "../../services/Simulation";
+import { formatDate, formatCurrency, formatTerm } from "../../utils/Formats";
 
 const fieldNames: Record<keyof SimulationResultData, string> = {
   id: "ID",
   userId: "User ID",
-  amount: "Amount",
   fromDate: "Start Date",
   toDate: "End Date",
-  paymentTerm: "Payment Term",
+  amount: "Amount",
   interestRate: "Interest Rate",
-  netInvestmentReturn: "Net Investment Return",
+  paymentTerm: "Payment Term",
   returnPerPeriod: "Return Per Period",
   withholdingTax: "Withholding Tax",
+  netInvestmentReturn: "Net Investment Return",
   finalInvestmentValue: "Final Investment Value",
-};
-
-const formatDate = (dateString: string) => {
-  const options: Intl.DateTimeFormatOptions = {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-  };
-  return new Date(dateString).toLocaleDateString(undefined, options);
 };
 
 function SimulationResultTable({
@@ -29,16 +21,28 @@ function SimulationResultTable({
   simulation: SimulationResultData;
 }) {
   const renderRows = () => {
-    return Object.entries(simulation).map(([key, value]) => {
-      const fieldName = fieldNames[key as keyof SimulationResultData];
+    const filteredFieldNames = Object.keys(fieldNames).filter(
+      (key) => key !== "id" && key !== "userId"
+    );
 
-      const formattedValue =
-        key === "fromDate" || key === "toDate"
-          ? formatDate(value as string)
-          : value;
+    return filteredFieldNames.map((key) => {
+      const fieldName = fieldNames[key as keyof SimulationResultData];
+      const value = simulation[key as keyof SimulationResultData];
+
+      let formattedValue;
+
+      if (key === "fromDate" || key === "toDate") {
+        formattedValue = formatDate(value as string);
+      } else if (key === "interestRate") {
+        formattedValue = value + "%";
+      } else if (key === "paymentTerm") {
+        formattedValue = formatTerm(value as string);
+      } else {
+        formattedValue = formatCurrency(value as number);
+      }
 
       return (
-        <div className="col-span-1" key={key}>
+        <div className="col-span-1 border-b pb-3" key={key}>
           <div>
             <p>{fieldName}</p>
             <p className="font-bold">{formattedValue}</p>
@@ -49,8 +53,8 @@ function SimulationResultTable({
   };
 
   return (
-    <div className="mx-auto">
-      <div className="grid grid-cols-1 md:grid-cols-3 sm:grid-cols-2 gap-4">
+    <div className="">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {renderRows()}
       </div>
     </div>

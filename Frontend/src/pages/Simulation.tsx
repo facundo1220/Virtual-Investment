@@ -14,6 +14,7 @@ import DeleteSimulationContent from "../components/Simulations/DeleteSimulationC
 import EditSimulationForm from "../components/Simulations/EditSimulationForm";
 import { useForm, FormProvider } from "react-hook-form";
 import { simulationValidationSchema } from "../schemas/simulationSchema";
+import { toast } from "react-toastify";
 
 const TableSimulations = React.lazy(
   () => import("../components/Simulations/TableSimulations")
@@ -129,7 +130,7 @@ function Simulation() {
         if (error instanceof Error) {
           navigate("/Simulations");
         } else {
-          alert("An unknown error occurred");
+          toast.error("An unknown error occurred");
         }
       }
     };
@@ -147,13 +148,13 @@ function Simulation() {
     : EditSimulationForm;
 
   return (
-    <div className="mt-14 px-5 h-full">
+    <div className="p-5 w-full">
       {Array.isArray(Simulations?.data) && Simulations?.data.length > 0 ? (
         <Suspense fallback={<p>Loading simulations...</p>}>
           <TableSimulations data={Simulations.data} openModal={openModal} />
         </Suspense>
       ) : (
-        <p>No simulations available</p>
+        <p>No simulations available...</p>
       )}
 
       <Modal

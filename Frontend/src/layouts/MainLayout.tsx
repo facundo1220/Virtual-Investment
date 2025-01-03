@@ -7,12 +7,12 @@ interface props {
 
 function MainLayout({ children }: props) {
   return (
-    <div className="h-screen flex flex-col justify-between">
-      <header className="h-14">
+    <div className="min-h-screen flex flex-col">
+      <header className="h-[70px] shadow-md">
         <Header />
       </header>
 
-      <main className="flex-grow h-full">{children}</main>
+      <main className="flex-grow flex justify-center">{children}</main>
 
       <footer className="h-20 bg-black">
         <Footer />

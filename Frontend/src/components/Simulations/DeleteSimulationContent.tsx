@@ -1,20 +1,12 @@
+import { CiCircleRemove } from "react-icons/ci";
+
 function DeleteSimulationContent() {
   return (
-    <div className="w-full">
-      <svg
-        className="text-gray-400 dark:text-gray-500 w-11 h-11 mb-3.5 mx-auto"
-        aria-hidden="true"
-        fill="currentColor"
-        viewBox="0 0 20 20"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          fill-rule="evenodd"
-          d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-          clip-rule="evenodd"
-        ></path>
-      </svg>
-      <p className="text-center mb-4">Are you sure you want to delete this item?</p>
+    <div className="w-full flex flex-col justify-center items-center gap-5">
+      <CiCircleRemove className="text-red-700" size={100} />
+      <p className="text-paragraph text-center mb-4">
+        Are you sure you want to delete this item?
+      </p>
     </div>
   );
 }

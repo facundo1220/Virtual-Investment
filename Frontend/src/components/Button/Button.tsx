@@ -8,7 +8,7 @@ function Button({ title, className, onclick }: ButtonArgs) {
   return (
     <button
       onClick={onclick}
-      className={`font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2  focus:outline-none border ${className}`}
+      className={`font-medium h-12 text-button px-5 py-2.5 me-2 mb-2  focus:outline-none  ${className}`}
       type="submit"
     >
       {title}

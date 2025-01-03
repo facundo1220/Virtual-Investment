@@ -1,14 +1,9 @@
-import { FaTrash, FaEdit } from "react-icons/fa";
-import { SimulationResultData } from "../../services/Simulation";
+import { Tooltip } from "react-tooltip";
+import { CiCircleInfo } from "react-icons/ci";
+import { CiTrash, CiEdit } from "react-icons/ci";
+import { formatDate, formatCurrency, formatTerm } from "../../utils/Formats";
 
-const formatDate = (dateString: string) => {
-  const options: Intl.DateTimeFormatOptions = {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-  };
-  return new Date(dateString).toLocaleDateString(undefined, options);
-};
+import { SimulationResultData } from "../../services/Simulation";
 
 interface TableSimulationsProps {
   data: SimulationResultData[];
@@ -16,53 +11,76 @@ interface TableSimulationsProps {
 }
 
 function TableSimulations({ data, openModal }: TableSimulationsProps) {
+  const columnNames = [
+    { name: "Start Date", tooltip: "Start date of the simulation" },
+    { name: "End Date", tooltip: "End date of the simulation" },
+    { name: "Amount", tooltip: "Investment amount" },
+    { name: "Rate", tooltip: "Annual interest rate" },
+    { name: "Term", tooltip: "Payment period" },
+    { name: "Return", tooltip: "Return for each period" },
+    { name: "Tax", tooltip: "Withholding Tax" },
+    { name: "Net Return", tooltip: "Return after taxes and fees" },
+    { name: "Final Value", tooltip: "Total value after return" },
+    { name: "", tooltip: "" },
+  ];
+
   return (
     <div className="overflow-x-auto shadow-md rounded-lg">
-      <table className="w-full text-sm text-left rtl:text-right text-white">
-        <thead className="text-xs text-white uppercase bg-[#26272F]">
-          <tr>
-            <th className="px-6 py-3">From Date</th>
-            <th className="px-6 py-3">To Date</th>
-            <th className="px-6 py-3">Amount</th>
-            <th className="px-6 py-3">Payment Term</th>
-            <th className="px-6 py-3">Interest Rate</th>
-            <th className="px-6 py-3">Return per Period</th>
-            <th className="px-6 py-3">Net Investment Return</th>
-            <th className="px-6 py-3">Withholding Tax</th>
-            <th className="px-6 py-3">Final Investment Value</th>
-            <th className="px-6 py-3"></th>
+      <table className="w-full text-xs text-left">
+        <thead className="uppercase">
+          <tr className="border whitespace-nowrap">
+            {columnNames.map((column, index) => (
+              <th key={index} className="px-6 py-3">
+                <div className="flex gap-2 items-center">
+                  {column.name}
+                  {column.tooltip && (
+                    <span
+                      data-tooltip-id="table-tooltip"
+                      data-tooltip-content={column.tooltip}
+                      data-tooltip-place="top"
+                    >
+                      <CiCircleInfo size={20} />
+                    </span>
+                  )}
+                </div>
+              </th>
+            ))}
           </tr>
         </thead>
         <tbody>
           {data.map((item) => (
-            <tr
-              className="odd:bg-white odd:text-black even:bg-gray-50 even:text-black border-b"
-              key={item.id}
-            >
-              <td className="px-6 py-3 justify-center">
-                {formatDate(item.fromDate)}
-              </td>
+            <tr className="text-black bg-white border-b" key={item.id}>
+              <td className="px-6 py-3">{formatDate(item.fromDate)}</td>
               <td className="px-6 py-3">{formatDate(item.toDate)}</td>
-              <td className="px-6 py-3">{item.amount}</td>
-              <td className="px-6 py-3">{item.paymentTerm}</td>
+              <td className="px-6 py-3">{formatCurrency(item.amount)}</td>
               <td className="px-6 py-3">{item.interestRate}%</td>
-              <td className="px-6 py-3">{item.returnPerPeriod}</td>
-              <td className="px-6 py-3">{item.netInvestmentReturn}</td>
-              <td className="px-6 py-3">{item.withholdingTax}</td>
-              <td className="px-6 py-3">{item.finalInvestmentValue}</td>
+              <td className="px-6 py-3">{formatTerm(item.paymentTerm)}</td>
+              <td className="px-6 py-3">
+                {formatCurrency(item.returnPerPeriod)}
+              </td>
+              <td className="px-6 py-3">
+                {formatCurrency(item.withholdingTax)}
+              </td>
+              <td className="px-6 py-3">
+                {formatCurrency(item.netInvestmentReturn)}
+              </td>
+              <td className="px-6 py-3">
+                {formatCurrency(item.finalInvestmentValue)}
+              </td>
               <td>
                 <div className="flex gap-3">
-                  <FaTrash
-                    size={16}
+                  <CiTrash
+                    size={20}
                     onClick={() => openModal(item, "delete")}
                   />
-                  <FaEdit size={16} onClick={() => openModal(item, "edit")} />
+                  <CiEdit size={20} onClick={() => openModal(item, "edit")} />
                 </div>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+      <Tooltip id="table-tooltip" />
     </div>
   );
 }

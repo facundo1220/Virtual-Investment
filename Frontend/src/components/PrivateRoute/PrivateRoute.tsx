@@ -7,8 +7,13 @@ const PrivateRoute = () => {
 
   useEffect(() => {
     const checkToken = async () => {
-      const validation = await validateToken();
-      setValid(validation ? true : false);
+      try {
+        const validation = await validateToken();
+        setValid(validation);
+      } catch (error) {
+        console.error("Error in token validation process:", error);
+        setValid(false);
+      }
     };
 
     checkToken();
@@ -18,7 +23,11 @@ const PrivateRoute = () => {
     return <div>Loading...</div>;
   }
 
-  return valid ? <Outlet /> : <Navigate to="/login" />;
+  if (valid) {
+    return <Outlet />;
+  }
+
+  return <Navigate to="/login" replace />;
 };
 
 export default PrivateRoute;

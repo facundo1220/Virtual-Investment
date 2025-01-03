@@ -67,24 +67,26 @@ function NewSimulation() {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center bg-re p-5 h-full">
-      <div className="h-full w-full rounded-xl lg:px-14 px-5 py-5">
-        {step === 1 && <ProcessInfo nextStep={nextStep} />}
+    <div className="md:p-5 w-full">
+      <div className="flex flex-col justify-center items-center h-full">
+        <div className="h-full w-full rounded-xl lg:px-14 md:px-5 px-2 py-5">
+          {step === 1 && <ProcessInfo nextStep={nextStep} />}
 
-        {step === 2 && (
-          <NewSimulationForm
-            prevStep={prevStep}
-            handleSimulation={handleSimulation}
-          />
-        )}
+          {step === 2 && (
+            <NewSimulationForm
+              prevStep={prevStep}
+              handleSimulation={handleSimulation}
+            />
+          )}
 
-        {step === 3 && simulationResult && (
-          <SimulationResult
-            prevStep={prevStep}
-            simulationResult={simulationResult}
-            handleSaveSimulation={handleSaveSimulation}
-          />
-        )}
+          {step === 3 && simulationResult && (
+            <SimulationResult
+              prevStep={prevStep}
+              simulationResult={simulationResult}
+              handleSaveSimulation={handleSaveSimulation}
+            />
+          )}
+        </div>
       </div>
     </div>
   );

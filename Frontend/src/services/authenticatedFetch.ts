@@ -35,12 +35,9 @@ export const validateToken = async () => {
     }
   );
 
-  const responseJson = await response.json();
-
   if (!response.ok) {
-
     return false
   }
 
-  return responseJson;
+  return true;
 };

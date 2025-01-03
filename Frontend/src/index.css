@@ -1,3 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Azeret+Mono:ital,wght@0,100..900;1,100..900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html {
+  @apply font-azerete;
+}
+
+input {
+  @apply bg-gray-50 border border-gray-300 text-gray-900 text-small h-12 rounded-full w-full p-5 focus:outline-none focus:border-black;
+}
+
+select {
+  @apply bg-gray-50 border border-gray-300 text-gray-900 text-small h-12 py-1 rounded-full w-full p-5 focus:outline-none focus:border-black;
+}
