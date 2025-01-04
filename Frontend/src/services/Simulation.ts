@@ -1,3 +1,4 @@
+import envConfig from "../config/envConfig";
 import { authenticatedFetch } from "./authenticatedFetch";
 
 export interface SimulationData {
@@ -27,6 +28,8 @@ export interface SimulationsTableData {
   data: SimulationResultData[];
 }
 
+const API_BASE_URL = envConfig.API_BASE_URL;
+
 export const generateSimulation = async ({
   amount,
   paymentTerm,
@@ -44,7 +47,7 @@ export const generateSimulation = async ({
   };
 
   const response = await authenticatedFetch(
-    "http://0.0.0.0:3000/api/simulation/generate",
+    `${API_BASE_URL}/api/simulation/generate`,
     {
       method: "POST",
       headers: {
@@ -70,9 +73,8 @@ export const generateSimulation = async ({
 };
 
 export const saveSimulation = async (simulationData: SimulationData) => {
-
   const response = await authenticatedFetch(
-    "http://0.0.0.0:3000/api/simulation/create",
+    `${API_BASE_URL}/api/simulation/create`,
     {
       method: "POST",
       headers: {
@@ -99,7 +101,7 @@ export const saveSimulation = async (simulationData: SimulationData) => {
 
 export const getSimulations = async (userId: string | null) => {
   const response = await authenticatedFetch(
-    `http://0.0.0.0:3000/api/simulation/${userId}`,
+    `${API_BASE_URL}/api/simulation/${userId}`,
     {
       method: "GET",
     }
@@ -145,7 +147,7 @@ export const updateSimulation = async (
   updatedData: SimulationData
 ) => {
   const response = await authenticatedFetch(
-    `http://0.0.0.0:3000/api/simulation/update/${simulationId}`,
+    `${API_BASE_URL}/api/simulation/update/${simulationId}`,
     {
       method: "PUT",
       headers: {
@@ -172,7 +174,7 @@ export const updateSimulation = async (
 
 export const deleteSimulation = async (simulationId: string | undefined) => {
   const response = await authenticatedFetch(
-    `http://0.0.0.0:3000/api/simulation/delete/${simulationId}`,
+    `${API_BASE_URL}/api/simulation/delete/${simulationId}`,
     {
       method: "DELETE",
     }

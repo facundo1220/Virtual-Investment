@@ -1,3 +1,5 @@
+import envConfig from "../config/envConfig";
+
 export const authenticatedFetch = async (url: string, options: RequestInit) => {
   const access_token = localStorage.getItem("access_token");
 
@@ -9,9 +11,7 @@ export const authenticatedFetch = async (url: string, options: RequestInit) => {
     },
   });
 
-
   if (!response.ok) {
-
     const errorMessage = "An unexpected error occurred";
 
     throw new Error(errorMessage);
@@ -20,24 +20,3 @@ export const authenticatedFetch = async (url: string, options: RequestInit) => {
   return response;
 };
 
-
-export const validateToken = async () => {
-  const access_token = localStorage.getItem("access_token");
-
-  const response = await fetch(
-    `http://0.0.0.0:3000/auth/validateSesion`,
-    {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${access_token}`,
-      }
-
-    }
-  );
-
-  if (!response.ok) {
-    return false
-  }
-
-  return true;
-};

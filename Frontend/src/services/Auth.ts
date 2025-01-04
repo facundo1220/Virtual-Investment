@@ -1,5 +1,4 @@
-import { authenticatedFetch } from "./authenticatedFetch";
-
+import envConfig from "../config/envConfig";
 
 interface LoginInterface {
   email: string;
@@ -9,7 +8,7 @@ interface LoginInterface {
 export const LoginProcess = async ({ email, password }: LoginInterface) => {
   const jsonData = { email, password };
 
-  const response = await fetch("http://0.0.0.0:3000/auth/login/", {
+  const response = await fetch(`${envConfig.API_BASE_URL}/auth/login/`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -32,4 +31,22 @@ export const LoginProcess = async ({ email, password }: LoginInterface) => {
   return responseJson;
 };
 
+export const validateToken = async () => {
+  const access_token = localStorage.getItem("access_token");
 
+  const response = await fetch(
+    `${envConfig.API_BASE_URL}/auth/validateSesion`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+    }
+  );
+
+  if (!response.ok) {
+    return false;
+  }
+
+  return true;
+};

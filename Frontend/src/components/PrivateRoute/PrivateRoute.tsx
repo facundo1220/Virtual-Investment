@@ -1,7 +1,7 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-import { validateToken } from "../../services/authenticatedFetch";
+import { validateToken } from "../../services/Auth";
 
 const PrivateRoute = () => {
   const [valid, setValid] = useState<boolean | null>(null);
