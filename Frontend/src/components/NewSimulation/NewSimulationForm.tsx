@@ -26,10 +26,12 @@ function NewSimulationForm({
   });
 
   return (
-    <div className="flex justify-center items-center flex-col gap-10 h-full">
-      <h1 className="md:text-headline3 text-headline4 font-bold">Enter Values</h1>
+    <div className="flex justify-center items-center flex-col h-full gap-10">
+      <h1 className="text-headline4 lg:text-headline3 font-bold">
+        Enter Values
+      </h1>
       <form
-        className="flex flex-col gap-5 md:w-1/2"
+        className="flex flex-col lg:w-1/2 gap-5"
         onSubmit={handleSubmit(handleSimulation)}
       >
         <div>
@@ -74,14 +76,14 @@ function NewSimulationForm({
           </select>
         </div>
 
-        <div className="flex flex-col md:flex-row w-full justify-center">
+        <div className="flex justify-center flex-col lg:flex-row w-full">
           <Button
-            className="bg-black rounded-full h-14 text-white hover:text-black hover:bg-[#f3ff6e] w-full lg:w-3/4"
+            className="w-full lg:w-3/4 h-14 rounded-full bg-black text-white hover:text-black hover:bg-primary_green"
             title="Go back"
             onclick={prevStep}
           />
           <Button
-            className="bg-black rounded-full h-14 text-white hover:text-black hover:bg-[#f3ff6e] w-full lg:w-3/4"
+            className="w-full lg:w-3/4 h-14 rounded-full bg-black text-white hover:text-black hover:bg-primary_green"
             title="View simulation"
           />
         </div>

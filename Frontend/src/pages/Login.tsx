@@ -1,10 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
-import Button from "../components/Button/Button";
-import { LoginProcess } from "../services/Auth";
 import { toast } from "react-toastify";
 import { yupResolver } from "@hookform/resolvers/yup";
+
+import { LoginProcess } from "../services/Auth";
 import { loginValidationSchema } from "../schemas/loginSchema";
+
+import Button from "../components/Button/Button";
 
 import image from "../assets/loginImage.png";
 
@@ -30,7 +32,6 @@ function Login() {
 
       if (loginResponse.token) {
         localStorage.setItem("access_token", loginResponse.token);
-
         localStorage.setItem("user_id", loginResponse.user.id);
         navigate("/Simulations");
       }
@@ -44,21 +45,21 @@ function Login() {
   };
 
   return (
-    <div className="flex p-5 justify-center items-center">
-      <div className="md:w-3/4 md:h-3/4 flex items-center sm:flex-col-reverse lg:flex-row shadow-2xl rounded-3xl justify-between">
-        <div className="flex justify-center h-full items-center lg:w-1/2 w-full">
+    <div className="flex justify-center items-center p-5">
+      <div className="flex flex-col-reverse lg:flex-row lg:w-3/4 lg:h-3/4 justify-between items-center shadow-2xl rounded-3xl">
+        <div className="flex justify-center items-center h-full w-full lg:w-1/2">
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="p-3 flex flex-col justify-center  items-center gap-8"
+            className="flex flex-col justify-center items-center p-3 gap-8"
           >
-            <h1 className="md:text-headline3 text-headline4 font-bold">
+            <h1 className="text-headline4 lg:text-headline3 font-bold">
               Welcome back
             </h1>
-            <h2 className="md:text-paragraph text-small text-center">
+            <h2 className="text-small lg:text-paragraph text-center">
               Enter your details to get login in to your account
             </h2>
 
-            <div className="flex flex-col gap-3 w-full">
+            <div className="flex flex-col w-full gap-3">
               <input
                 {...register("email")}
                 placeholder="user@email.com"
@@ -84,11 +85,11 @@ function Login() {
 
             <Button
               title="Login"
-              className="bg-black rounded-full text-white hover:text-black hover:bg-[#f3ff6e] w-full"
+              className="bg-black rounded-full text-white hover:text-black hover:bg-primary_green w-full"
             />
           </form>
         </div>
-        <div className="flex bg-[#f3ff6e] lg:w-1/2 h-full rounded-r-3xl  w-full justify-start items-center">
+        <div className="flex justify-start items-center h-full w-full lg:w-1/2 rounded-r-3xl bg-primary_green">
           <img className="object-cover lg:h-full h-48" src={image} alt="" />
         </div>
       </div>

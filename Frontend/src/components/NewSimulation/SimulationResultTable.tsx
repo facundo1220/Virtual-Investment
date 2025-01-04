@@ -53,8 +53,8 @@ function SimulationResultTable({
   };
 
   return (
-    <div className="">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         {renderRows()}
       </div>
     </div>

@@ -14,9 +14,9 @@ function SimulationResult({
 }) {
   return (
     <div className="flex justify-center items-center h-full">
-      <div className="md:w-1/2 flex flex-col gap-5">
+      <div className="flex flex-col lg:w-1/2 gap-5">
         <div>
-          <h2 className="md:text-headline3 text-headline4 font-bold">
+          <h2 className="text-headline4 lg:text-headline3 font-bold">
             Simulation Completed
           </h2>
         </div>
@@ -25,14 +25,14 @@ function SimulationResult({
           <p className="text-paragraph">This is your simulation result:</p>
           <SimulationResultTable simulation={simulationResult} />
         </div>
-        <div className="flex flex-col md:flex-row justify-center">
+        <div className="flex flex-col lg:flex-row justify-center">
           <Button
-            className="bg-black rounded-full h-14 text-white hover:text-black hover:bg-[#f3ff6e] w-full lg:w-3/4"
+            className="w-full lg:w-3/4 h-14 rounded-full bg-black text-white hover:text-black hover:bg-primary_green"
             title="Go back"
             onclick={prevStep}
           />
           <Button
-            className="bg-black rounded-full h-14 text-white hover:text-black hover:bg-[#f3ff6e] w-full lg:w-3/4"
+            className="w-full lg:w-3/4 h-14 rounded-full bg-black text-white hover:text-black hover:bg-primary_green"
             title="Save simulation"
             onclick={handleSaveSimulation}
           />

@@ -1,5 +1,6 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { useState, useEffect } from "react";
+
 import { validateToken } from "../../services/authenticatedFetch";
 
 const PrivateRoute = () => {

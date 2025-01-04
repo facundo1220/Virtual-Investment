@@ -1,5 +1,11 @@
 import React, { useEffect, useState, Suspense } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useNavigate } from "react-router-dom";
+import { useForm, FormProvider } from "react-hook-form";
+import { toast } from "react-toastify";
+
+import { useAppContext } from "../hooks/UserContext";
+import { simulationValidationSchema } from "../schemas/simulationSchema";
 import {
   deleteSimulation,
   getSimulations,
@@ -7,15 +13,11 @@ import {
   generateSimulation,
   updateSimulation,
 } from "../services/Simulation";
-import { useAppContext } from "../hooks/UserContext";
-import { useNavigate } from "react-router-dom";
+import { formatDate } from "../utils/Formats";
+
 import Modal from "../components/Modal/Modal";
 import DeleteSimulationContent from "../components/Simulations/DeleteSimulationContent";
 import EditSimulationForm from "../components/Simulations/EditSimulationForm";
-import { useForm, FormProvider } from "react-hook-form";
-import { simulationValidationSchema } from "../schemas/simulationSchema";
-import { toast } from "react-toastify";
-
 const TableSimulations = React.lazy(
   () => import("../components/Simulations/TableSimulations")
 );
@@ -27,13 +29,9 @@ interface FormData {
   paymentType: string;
 }
 
-const formatDate = (dateString: string) => {
-  const date = new Date(dateString);
-  return date.toISOString().split("T")[0];
-};
-
 function Simulation() {
   const navigate = useNavigate();
+  const { Simulations, setSimulations } = useAppContext();
 
   const [selectedSimulation, setSelectedSimulation] =
     useState<SimulationData | null>(null);
@@ -54,8 +52,19 @@ function Simulation() {
 
   const { reset } = methods;
 
-  const { Simulations, setSimulations } = useAppContext();
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = (simulation: SimulationData, action: "edit" | "delete") => {
+    setIsModalOpen(true);
+    setSelectedSimulation(simulation);
+    setModalAction(action);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setModalAction(null);
+    setSelectedSimulation(null);
+  };
 
   const [modalAction, setModalAction] = useState<"edit" | "delete" | null>(
     null
@@ -107,18 +116,6 @@ function Simulation() {
     }
   };
 
-  const openModal = (simulation: SimulationData, action: "edit" | "delete") => {
-    setIsModalOpen(true);
-    setSelectedSimulation(simulation);
-    setModalAction(action);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-    setModalAction(null);
-    setSelectedSimulation(null);
-  };
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -143,12 +140,13 @@ function Simulation() {
   const onSubmit = isDeleteAction
     ? handleDelete
     : methods.handleSubmit(handleEdit);
+
   const ModalContent = isDeleteAction
     ? DeleteSimulationContent
     : EditSimulationForm;
 
   return (
-    <div className="p-5 w-full">
+    <div className=" w-full p-5">
       {Array.isArray(Simulations?.data) && Simulations?.data.length > 0 ? (
         <Suspense fallback={<p>Loading simulations...</p>}>
           <TableSimulations data={Simulations.data} openModal={openModal} />

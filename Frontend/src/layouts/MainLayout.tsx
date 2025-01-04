@@ -1,13 +1,13 @@
 import Footer from "../components/MainLayout/Footer";
 import Header from "../components/MainLayout/Header";
 
-interface props {
+interface mainLayoutProps {
   children: JSX.Element | JSX.Element[];
 }
 
-function MainLayout({ children }: props) {
+function MainLayout({ children }: mainLayoutProps) {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="flex flex-col min-h-screen">
       <header className="h-[70px] shadow-md">
         <Header />
       </header>

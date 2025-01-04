@@ -67,9 +67,9 @@ function NewSimulation() {
   };
 
   return (
-    <div className="md:p-5 w-full">
+    <div className="lg:p-5 w-full">
       <div className="flex flex-col justify-center items-center h-full">
-        <div className="h-full w-full rounded-xl lg:px-14 md:px-5 px-2 py-5">
+        <div className="h-full w-full lg:px-14 px-2 py-5 rounded-xl">
           {step === 1 && <ProcessInfo nextStep={nextStep} />}
 
           {step === 2 && (

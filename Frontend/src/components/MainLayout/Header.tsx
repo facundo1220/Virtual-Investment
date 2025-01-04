@@ -4,8 +4,9 @@ import { BsDiamondHalf } from "react-icons/bs";
 import { useLocation } from "react-router-dom";
 
 function Header() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
+
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev);
@@ -26,8 +27,8 @@ function Header() {
   }, [isMenuOpen]);
 
   return (
-    <div className="flex items-center justify-between p-4">
-      <div className="flex gap-2 justify-center items-center">
+    <div className="flex justify-between items-center p-4">
+      <div className="flex justify-center items-center gap-2">
         <BsDiamondHalf size={30} />
         <h1 className="text-headline3 font-semibold">ONE BANK</h1>
       </div>
@@ -35,12 +36,12 @@ function Header() {
       {showMenu && (
         <>
           <IoMenuSharp
-            className="md:hidden cursor-pointer"
+            className="lg:hidden cursor-pointer"
             size={30}
             onClick={toggleMenu}
           />
 
-          <div className="hidden md:flex">
+          <div className="hidden lg:flex">
             <ul className="flex space-x-4">
               <li>
                 <a
@@ -70,32 +71,18 @@ function Header() {
           </div>
 
           <div
-            className={`absolute top-14 left-0 h-full w-full bg-black bg-opacity-80 md:hidden ${
+            className={`lg:hidden absolute top-14 left-0 h-full w-full bg-black bg-opacity-80 ${
               isMenuOpen ? "block" : "hidden"
             }`}
           >
             <ul className="flex flex-col items-center">
-              <li className="bg-black w-full flex flex-col items-center justify-center h-14 border-b border-white">
-                <a
-                  href="/Simulations"
-                  className={`p-2 text-white ${
-                    isActive("/Simulations")
-                      ? "border-b-2 border-black font-semibold"
-                      : ""
-                  }`}
-                >
+              <li className="flex flex-col justify-center items-center w-full h-14 bg-black border-b border-white">
+                <a href="/Simulations" className="p-2 text-white">
                   My simulations
                 </a>
               </li>
-              <li className="bg-black w-full flex flex-col items-center justify-center h-14">
-                <a
-                  href="/NewSimulation"
-                  className={`p-2 text-white ${
-                    isActive("/NewSimulation")
-                      ? "border-b-2 border-black font-semibold"
-                      : ""
-                  }`}
-                >
+              <li className="flex flex-col justify-center items-cente w-full h-14 bg-black">
+                <a href="/NewSimulation" className="p-2 text-white">
                   New simulation
                 </a>
               </li>

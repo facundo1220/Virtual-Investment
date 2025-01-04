@@ -1,6 +1,7 @@
 import { Tooltip } from "react-tooltip";
 import { CiCircleInfo } from "react-icons/ci";
 import { CiTrash, CiEdit } from "react-icons/ci";
+
 import { formatDate, formatCurrency, formatTerm } from "../../utils/Formats";
 
 import { SimulationResultData } from "../../services/Simulation";

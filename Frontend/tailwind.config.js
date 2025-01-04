@@ -6,12 +6,11 @@ export default {
       fontFamily: {
         azerete: ["Azeret Mono", "sans-serif"],
       },
+      backgroundColor: { primary_green: "#f3ff6e" },
     },
     screens: {
       sm: "240px",
-
       md: "768px",
-
       lg: "1024px",
     },
     fontSize: {

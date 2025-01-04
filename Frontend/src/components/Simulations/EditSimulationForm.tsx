@@ -9,14 +9,14 @@ function EditSimulationForm() {
   return (
     <form className="flex flex-col gap-5">
       <div>
-        <label className="text-smallall font-semibold px-5">Amount: </label>
+        <label className="text-small font-semibold px-5">Amount: </label>
         <input
           type="number"
           {...register("value")}
           placeholder="Enter the value"
         />
         {errors.value && typeof errors.value.message === "string" && (
-          <span className="text-red-500 px-5 text-smallall">
+          <span className="text-red-500 px-5 text-small">
             {errors.value.message}
           </span>
         )}
