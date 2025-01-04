@@ -4,8 +4,9 @@ import { createInitUser } from './config/createInitUser'
 async function main() {
   try {
     await AppDataSource.initialize();
-    await createInitUser();
     console.log("Database connected");
+
+    await createInitUser();
 
     app.listen(app.get("port"), () => {
       console.log("Server working");
