@@ -13,7 +13,7 @@ const envConfig: EnvConfig = {
 };
 
 const missingVariables = Object.entries(envConfig)
-    .filter(([key, value]) => !value)
+    .filter(([_, value]) => !value)
     .map(([key]) => key);
 
 if (missingVariables.length > 0) {

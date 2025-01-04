@@ -1,5 +1,3 @@
-import envConfig from "../config/envConfig";
-
 export const authenticatedFetch = async (url: string, options: RequestInit) => {
   const access_token = localStorage.getItem("access_token");
 
