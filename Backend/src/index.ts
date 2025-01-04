@@ -1,10 +1,10 @@
 import app from "./app";
 import { AppDataSource } from "./config/data-source";
-
+import { createInitUser } from './config/createInitUser'
 async function main() {
   try {
     await AppDataSource.initialize();
-
+    await createInitUser();
     console.log("Database connected");
 
     app.listen(app.get("port"), () => {

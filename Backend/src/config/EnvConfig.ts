@@ -12,6 +12,9 @@ interface EnvConfig {
     NODE_ENV: string;
     JWT_SECRET: string;
     WITHHOLDING_TASK: number
+    USER_NAME: string
+    USER_EMAIL: string
+    USER_PASS: string
 }
 
 const envConfig: EnvConfig = {
@@ -23,7 +26,10 @@ const envConfig: EnvConfig = {
     DB_DATABASE: process.env.DB_DATABASE,
     NODE_ENV: process.env.NODE_ENV,
     JWT_SECRET: process.env.JWT_SECRET,
-    WITHHOLDING_TASK: parseFloat(process.env.WITHHOLDING_TASK)
+    WITHHOLDING_TASK: parseFloat(process.env.WITHHOLDING_TASK),
+    USER_NAME: process.env.USER_NAME,
+    USER_EMAIL: process.env.USER_EMAIL,
+    USER_PASS: process.env.USER_PASS
 };
 
 

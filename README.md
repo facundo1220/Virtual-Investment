@@ -1,4 +1,4 @@
-# Fullstack Project
+# Virtual Investment Project
 
 This project uses Docker to containerize a fullstack application that includes a Node.js backend and frontend. It also utilizes PostgreSQL as the database.
 
@@ -23,11 +23,10 @@ Docker Compose
 │   ├── package.json
 │   └── src
 │
-├── db_init
+├── DataInit
 │   └── init.sql
 │
-├── docker-compose.yml
-└── nginx.conf
+└── docker-compose.yml
 
 ```
 
@@ -42,7 +41,9 @@ environment:
 
 ```
 
-2. Database Initialization: The database is automatically set up using the .init.sql file located in the db/init folder. This file contains the necessary instructions to create and configure the required tables, ensuring the environment is ready for use without any additional manual setup
+2. Database Initialization: The database is automatically set up using the .init.sql file located in the db/init folder. 
+
+This file contains the necessary instructions to create and configure the required tables, ensuring the environment is ready for use without any additional manual setup
 
 ## Running the Project
 
@@ -59,7 +60,7 @@ docker-compose up --build
 3. Access the application:
 
 - Frontend: Open your browser and go to http://localhost (port 80).
-  \*Backend: Access the API at http://localhost:8000.
+  \*Backend: Access the API at http://localhost:3000.
 
 ## Useful Commands
 
