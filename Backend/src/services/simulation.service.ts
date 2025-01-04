@@ -28,8 +28,6 @@ export class SimulationService {
       finalInvestmentValue,
     } = data;
 
-    console.log(data);
-
     const userRepository = AppDataSource.getRepository(User);
     const user = await userRepository.findOne({ where: { id: userId } });
 

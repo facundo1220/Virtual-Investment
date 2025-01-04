@@ -81,7 +81,7 @@ function Header() {
                   My simulations
                 </a>
               </li>
-              <li className="flex flex-col justify-center items-cente w-full h-14 bg-black">
+              <li className="flex flex-col justify-center items-center w-full h-14 bg-black">
                 <a href="/NewSimulation" className="p-2 text-white">
                   New simulation
                 </a>

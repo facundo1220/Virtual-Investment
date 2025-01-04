@@ -13,7 +13,6 @@ export const authentification = (
     res.status(401).json({ message: "Unauthorized: Missing authorization header" });
   }
 
-
   const token = header.split(" ")[1];
 
   if (!token) {

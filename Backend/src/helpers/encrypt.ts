@@ -1,5 +1,5 @@
 import * as jwt from "jsonwebtoken";
-import * as bcrypt from "bcrypt";
+import * as bcrypt from "bcryptjs";
 import envConfig from '../config/EnvConfig'
 
 const JWT_SECRET = envConfig.JWT_SECRET;

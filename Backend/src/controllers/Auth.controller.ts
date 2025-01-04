@@ -35,12 +35,19 @@ export class AuthController {
     }
   }
 
-  static validateToken(req: Request, res: Response) {
+  static async validateToken(req: Request, res: Response) {
     try {
       if (!req["currentUser"]) {
         res.status(401).json({ message: "Unauthorized" });
         return
       }
+
+      const user = await AuthService.getProfile(req["currentUser"].id);
+      if (!user) {
+        res.status(404).json({ message: "Uset not found" });
+        return
+      }
+
       res.status(200).json({ message: "Token is valid" });
     } catch (error) {
       console.error(error);

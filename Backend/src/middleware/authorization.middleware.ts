@@ -8,6 +8,10 @@ export const authorization = (roles: string[]) => {
     const user = await userRepo.findOne({
       where: { id: req["currentUser"].id },
     });
+    if (!user) {
+      res.status(404).json({ message: "User not found" });
+      return
+    }
     if (!roles.includes(user.role)) {
       res.status(403).json({ message: "Forbidden" });
       return

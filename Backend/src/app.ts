@@ -14,7 +14,6 @@ const { PORT = 3000 } = process.env;
 app.set("port", PORT);
 
 app.use(cors());
-app.use(express.json());
 
 app.use("/auth", userRouter);
 app.use("/api", simulationRoute);

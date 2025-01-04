@@ -36,6 +36,24 @@ function Simulation() {
   const [selectedSimulation, setSelectedSimulation] =
     useState<SimulationData | null>(null);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const allSimulations = await getSimulations(
+          localStorage.getItem("user_id")
+        );
+        setSimulations(allSimulations);
+      } catch (error) {
+        if (error instanceof Error) {
+          navigate("/Simulations");
+        } else {
+          toast.error("An unknown error occurred");
+        }
+      }
+    };
+    fetchData();
+  }, [setSimulations, navigate]);
+
   const methods = useForm<FormData>({
     defaultValues: {
       value: selectedSimulation?.amount || 0,
@@ -85,10 +103,20 @@ function Simulation() {
     }
   }, [selectedSimulation, modalAction, reset]);
 
-  const handleDelete = () => {
-    deleteSimulation(selectedSimulation?.id);
-    closeModal();
-    window.location.reload();
+  const handleDelete = async () => {
+    if (selectedSimulation?.id) {
+      try {
+        await deleteSimulation(selectedSimulation.id);
+        closeModal();
+        const updatedSimulations = await getSimulations(
+          localStorage.getItem("user_id")
+        );
+        setSimulations(updatedSimulations);
+        toast.success("Simulation deleted successfully!");
+      } catch (error) {
+        toast.error("Failed to delete simulation.");
+      }
+    }
   };
 
   const handleEdit = async ({
@@ -106,33 +134,19 @@ function Simulation() {
       });
 
       if (simulation && selectedSimulation?.id) {
-        updateSimulation(selectedSimulation?.id, simulation);
-      }
-
-      closeModal();
-      window.location.reload();
-    } catch (error) {
-      console.error("Error generating simulation:", error);
-    }
-  };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const allSimulations = await getSimulations(
+        await updateSimulation(selectedSimulation.id, simulation);
+        closeModal();
+        const updatedSimulations = await getSimulations(
           localStorage.getItem("user_id")
         );
-        setSimulations(allSimulations);
-      } catch (error) {
-        if (error instanceof Error) {
-          navigate("/Simulations");
-        } else {
-          toast.error("An unknown error occurred");
-        }
+        setSimulations(updatedSimulations);
+        toast.success("Simulation updated successfully!");
       }
-    };
-    fetchData();
-  }, [setSimulations, navigate]);
+    } catch (error) {
+      console.error("Error generating simulation:", error);
+      toast.error("Failed to update simulation.");
+    }
+  };
 
   const isDeleteAction = modalAction === "delete";
   const modalTitle = isDeleteAction ? "Remove Simulation" : "Edit simulation";
