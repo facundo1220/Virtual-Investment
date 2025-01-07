@@ -19,6 +19,7 @@ export class UserController {
       res
         .status(500)
         .json({ message: "Error creating user", error: error.message });
+      return
     }
   }
 
@@ -31,6 +32,7 @@ export class UserController {
       res
         .status(500)
         .json({ message: "Error fetching users", error: error.message });
+      return
     }
   }
 
@@ -45,6 +47,7 @@ export class UserController {
       res
         .status(500)
         .json({ message: "Error updating user", error: error.message });
+      return
     }
   }
 
@@ -58,6 +61,7 @@ export class UserController {
       res
         .status(500)
         .json({ message: "Error deleting user", error: error.message });
+      return
     }
   }
 }

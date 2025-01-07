@@ -49,6 +49,7 @@ export class SimulationController {
       return
     } catch (error) {
       res.status(400).json({ message: error.message });
+      return
     }
   }
   static async getSimulations(req: Request, res: Response) {
@@ -60,6 +61,7 @@ export class SimulationController {
       return
     } catch (error) {
       res.status(400).json({ message: error.message });
+      return
     }
   }
 
@@ -78,6 +80,7 @@ export class SimulationController {
       return
     } catch (error) {
       res.status(400).json({ message: error.message });
+      return
     }
   }
 
@@ -90,6 +93,7 @@ export class SimulationController {
       return
     } catch (error) {
       res.status(400).json({ message: error.message });
+      return
     }
   }
 }
