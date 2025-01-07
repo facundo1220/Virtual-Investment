@@ -5,10 +5,12 @@ import { userRouter } from "./routes/user.route";
 import { simulationRoute } from "./routes/simulation.route";
 import { errorHandler } from "./middleware/error.middleware";
 
+import envConfig from "./config/EnvConfig";
+
 const app = express();
 app.use(express.json());
 
-const { PORT = 3000 } = process.env;
+const PORT = envConfig.PORT;
 
 app.set("port", PORT);
 
