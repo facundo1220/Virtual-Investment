@@ -7,7 +7,6 @@ import { errorHandler } from "./middleware/error.middleware";
 
 const app = express();
 app.use(express.json());
-app.use(errorHandler);
 
 const { PORT = 3000 } = process.env;
 
@@ -17,5 +16,7 @@ app.use(cors());
 
 app.use("/auth", userRouter);
 app.use("/api", simulationRoute);
+
+app.use(errorHandler);
 
 export default app;
