@@ -10,7 +10,7 @@ function MainLayout() {
       </header>
 
       <main className="flex-grow flex justify-center">
-        <Outlet /> {/* Aquí se renderizarán las rutas hijas */}
+        <Outlet />
       </main>
 
       <footer className="h-20 bg-black">
