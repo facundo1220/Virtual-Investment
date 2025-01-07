@@ -9,9 +9,8 @@ import NewSimulation from "../pages/NewSimulation";
 function AppNavigation() {
   return (
     <BrowserRouter>
-      <MainLayout>
-        <Routes>
-          <Route path="/*" element={<NotFound />} />
+      <Routes>
+        <Route element={<MainLayout />}>
           <Route path="/" element={<Login />} />
           <Route path="/Login" element={<Login />} />
 
@@ -19,8 +18,10 @@ function AppNavigation() {
             <Route path="/Simulations" element={<Simulation />} />
             <Route path="/NewSimulation" element={<NewSimulation />} />
           </Route>
-        </Routes>
-      </MainLayout>
+        </Route>
+
+        <Route path="/*" element={<NotFound />} />
+      </Routes>
     </BrowserRouter>
   );
 }
